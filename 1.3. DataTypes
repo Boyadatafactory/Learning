@@ -1,0 +1,36 @@
+print('Введите бюджет поездки на 1 месяц (30 дней) в рублях РФ: ') # вводим бюджет в рублях  на 30 дней (в рублях РФ)
+travel_budget = int(input())
+
+country= dict() # в какие страны мы можем поехать
+countries = [
+  {'name':'Thailand','country_sea': True, 'country_warm': True, 'country_schengen': False, 'exchange_rate': 30, 'day_price': 5}, 
+  {'name':'Germany','country_sea': True, 'country_warm': False, 'country_schengen': True, 'exchange_rate': 64, 'day_price': 50},
+  {'name':'Poland','country_sea': True, 'country_warm': False, 'country_schengen': True, 'exchange_rate': 15, 'day_price': 30},
+  {'name':'Hungary','country_sea': False, 'country_warm': False, 'country_schengen': True, 'exchange_rate': 2, 'day_price': 20},
+  {'name':'Finland','country_sea': True, 'country_warm': False, 'country_schengen': True, 'exchange_rate': 64, 'day_price': 40},
+  {'name':'Spain','country_sea': True, 'country_warm': True, 'country_schengen': True, 'exchange_rate': 64, 'day_price': 30},
+  {'name':'USA','country_sea': True, 'country_warm': True, 'country_schengen': False, 'exchange_rate': 56, 'day_price': 60},
+  {'name':'Brazil','country_sea': True, 'country_warm': True, 'country_schengen': False, 'exchange_rate': 41, 'day_price': 10},
+  {'name':'Estonia','country_sea': True, 'country_warm': False, 'country_schengen': True, 'exchange_rate': 64, 'day_price': 15} 
+  ]
+
+countries_warm = []
+countries_sea = []
+countries_schengen = []
+print(countries_warm)
+
+print('Предлагаемые страны, в которых хватит бюджета прожить 1 месяц:')
+
+countries_warm_and_sea = countries_warm + countries_sea
+
+# учитываем курс обмена валюты для конкретной страны (в разных странах он разный)
+
+for country in countries: 
+  if country['country_warm'] and country['country_sea'] and (country['day_price'] * 30) <= travel_budget / country['exchange_rate']:
+    countries_warm_and_sea.append(country['name'])
+    countries_sea.append(country['name'])
+  elif country['country_schengen'] and (country['day_price'] * 30) <= travel_budget / country['exchange_rate']:
+    countries_schengen.append(country['name'])
+    
+print('1. Теплые страны и есть море: %s ' % (countries_warm_and_sea))    
+print('2. Страны Шенгена: %s ' % (countries_schengen))
