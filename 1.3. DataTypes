@@ -1,3 +1,6 @@
+# в какие страны мы можем поехать
+# вводим бюджет в рублях на 30 дней (будет переменная = travel_budget)
+
 print('Введите бюджет поездки на месяц: ')
 travel_budget = int(input())
 country= dict()
@@ -20,11 +23,8 @@ countries_warm = set()
 countries_sea = set()
 countries_schengen = set()
 
-# month_budget = country['day_price'] * 30 # бюджет в стране на 30 дней (в валюте страны)
-
-# if travel_budget >= month_budget:
-  # print('страны подходят по бюджету и их нужно выводит в списке стран')
-
+# travel_budget >= month_budget:
+ 
 print('Предлагаемые страны, в которых хватит бюджета прожить 1 месяц:')
 
 for country in countries:
@@ -34,7 +34,7 @@ for country in countries:
   if country['country_schengen'] and (country['day_price'] * 30) <= travel_budget / country['exchange_rate']:
       countries_schengen.add(country['name'])
 
-countries_warm_and_sea = countries_warm | countries_sea
-countries_warm_and_sea_shengen = countries_warm_and_sea | countries_schengen
+countries_warm_and_sea = countries_warm & countries_sea
+countries_warm_and_sea_or_shengen = countries_warm_and_sea | countries_schengen
 
-print('Теплые страны и есть море, или нужен Шенген: %s ' % (countries_warm_and_sea_shengen))
+print('Теплые страны и есть море, или нужен Шенген: %s ' % (countries_warm_and_sea_or_shengen))
